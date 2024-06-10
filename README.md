@@ -1,4 +1,3 @@
-````markdown
 # Paar
 
 Paar - это простое key/value хранилище, реализующее команды GET, SET, DELETE, EXPIRE и другие, с возможностью сохранения данных на диск.
@@ -23,7 +22,6 @@ git clone https://github.com/ethaningenium/paar.git
 cd paar
 make run
 ```
-````
 
 ## Использование
 
