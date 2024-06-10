@@ -1,0 +1,58 @@
+# Бинарные файлы
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Кэш и объектные файлы
+*.obj
+*.o
+*.a
+*.lo
+*.la
+*.lai
+*.rej
+*~
+
+# Папка с зависимостями
+vendor/
+
+# Лог файлы и профайлы
+*.log
+*.test
+*.out
+*.prof
+
+# Кэширование модуля
+go.sum
+go.mod
+
+# Папка с кэшем и временные файлы
+*.tmp
+*.swp
+*.swo
+.idea/
+.vscode/
+.DS_Store
+
+# Тестовые данные
+testdata/
+data.json
+
+# Сборки
+bin/
+build/
+
+# Примеры, если есть
+examples/
+
+# Папка с кэшом модулей Go
+GOPATH/pkg/mod/
+
+# Конфигурационные файлы
+.env
+config.yaml
+
+# IDE специфические файлы
+*.iml
