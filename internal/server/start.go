@@ -17,7 +17,6 @@ type Server struct {
 	listeningPort string
 	ln            net.Listener
 	quitCh        chan struct{}
-	messageCh     chan []byte
 	wg            sync.WaitGroup
 	process  			*process.Process
 }
@@ -26,7 +25,6 @@ func NewServer(listeningPort string) *Server {
 	return &Server{
 		listeningPort: listeningPort,
 		quitCh:        make(chan struct{}),
-		messageCh:     make(chan []byte),
 		process:       process.New(),
 	}
 }

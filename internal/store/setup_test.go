@@ -43,19 +43,39 @@ func TestStore(t *testing.T) {
 	storage.Store("key4", store.Values{Value: "value4", ExpireTo: infinite})
 
 	//Range
-	keys := []string{}
+	keys := map[string]store.Values{
+		"key2": {Value: "value2", ExpireTo: infinite},
+		"key3": {Value: "value3", ExpireTo: infinite},
+		"key4": {Value: "value4", ExpireTo: infinite},
+	}
+	result := make(map[string]store.Values)
 	storage.Range(func(key string, value store.Values) bool {
 		if value.ExpireTo.Before(time.Now()) {
 			t.Errorf("key %s expired", key)
 		}else{
-			keys = append(keys, key)
+			result[key] = value
 		}
 		return true
 	})
 	if len(keys)!= 3 {
-		t.Errorf("keys expected 3, but %d", len(keys))
+		t.Errorf("result expected 3, but %d", len(keys))
 	}
-	if keys[0]!= "key2" || keys[1]!= "key3" || keys[2]!= "key4" {
-		t.Errorf("keys expected [key2, key3, key4], but %s", keys)
+	
+	for k, v := range keys {
+		if k == "key2" {
+			if v.Value!= "value2" {
+				t.Errorf("value2 expected, but %s", v.Value)
+			}
+		}else if k == "key3" {
+			if v.Value!= "value3" {
+				t.Errorf("value3 expected, but %s", v.Value)
+			}
+		} else if k == "key4" {
+			if v.Value!= "value4" {
+				t.Errorf("value4 expected, but %s", v.Value)
+			}
+		}else{
+			t.Errorf("key %s not found", k)
+		}
 	}
 }
