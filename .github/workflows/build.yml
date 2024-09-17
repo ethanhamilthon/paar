@@ -1,0 +1,26 @@
+name: Build and Push Docker Image
+
+
+on:
+  workflow_dispatch: 
+  push:
+    branches:
+    - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Install nixpacks
+      run: curl -sSL https://nixpacks.com/install.sh | bash
+    - name: Build Docker image with Nixpacks
+      run: nixpacks build . --name c1b62bb7-c23a-42ed-b8b8-06d1fb4205fd:${{ github.sha }}
+    - name: Push Docker image
+      run: docker tag c1b62bb7-c23a-42ed-b8b8-06d1fb4205fd:${{ github.sha }} ${{ secrets.REGISTERY_URL }}/c1b62bb7-c23a-42ed-b8b8-06d1fb4205fd:${{ github.sha }} && docker push ${{ secrets.REGISTERY_URL }}/c1b62bb7-c23a-42ed-b8b8-06d1fb4205fd:${{ github.sha }}
+    - name: Notify server about new version
+      run: curl -X GET ${{ secrets.NOTIFICATION_URL }}/c1b62bb7-c23a-42ed-b8b8-06d1fb4205fd:${{ github.sha }}
+
+
